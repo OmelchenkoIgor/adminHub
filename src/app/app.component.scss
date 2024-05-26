@@ -1,0 +1,38 @@
+.layout {
+  min-height: 100vh;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+
+  background: rgba(255, 255, 255, 0.2);
+
+  p {
+    margin: 0;
+  }
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+nz-content {
+  margin: 24px 16px 0;
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  min-height: 360px;
+}
+
+nz-footer {
+  text-align: center;
+}
