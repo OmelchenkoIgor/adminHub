@@ -1,23 +1,23 @@
 <div class="establishments-form">
   <div class="form-group">
-    <label for="title">Title</label>
+    <label for="title">Назва</label>
     <input type="text" id="title" [(ngModel)]="title" placeholder="Enter title" class="form-control">
   </div>
   <div class="form-group">
-    <label for="type">Type</label>
+    <label for="type">Тип</label>
     <input type="text" id="type" [(ngModel)]="type" placeholder="Enter type" class="form-control">
   </div>
   <div class="form-group">
-    <label for="locations">Locations</label>
+    <label for="locations">Розташування</label>
     <input type="text" id="locations" [(ngModel)]="locations" placeholder="Enter locations" class="form-control">
   </div>
   <div class="form-group">
-    <label for="suggestions">Suggestions (JSON)</label>
+    <label for="suggestions">Пропозиції (JSON)</label>
     <input type="text" id="suggestions" [(ngModel)]="suggestions" placeholder="Enter suggestions" class="form-control">
   </div>
   <div class="form-group">
-    <label for="images">Upload Images</label>
+    <label for="images">Завантажити зображення</label>
     <input type="file" id="images" (change)="onFileSelected($event)" multiple class="form-control-file">
   </div>
-  <button (click)="upload()" class="btn btn-primary">Upload</button>
+  <button (click)="upload()" class="btn btn-primary">Завантажити</button>
 </div>
