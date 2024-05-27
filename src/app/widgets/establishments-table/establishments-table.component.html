@@ -1,0 +1,34 @@
+<div class="establishments-table">
+  <nz-table
+    nzBordered
+    nzTemplateMode
+    #basicTable
+    [nzData]="listEstablishments()"
+  >
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Locations</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (data of basicTable.data; track $index) {
+        <tr>
+          <td>{{ data.title }}</td>
+          <td>{{ data.type }}</td>
+          <td>{{ data.locations }}</td>
+          <td>
+            <a
+              nz-popconfirm
+              nzPopconfirmTitle="Дійсно бажаєте видалити цей заклад?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="deleteEstablishment(data._id)"
+            >Delete</a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>

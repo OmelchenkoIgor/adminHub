@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, output, OutputEmitterRef} from '@angular/core';
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent} from 'ng-zorro-antd/form';
 import {FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NzInputDirective, NzInputGroupComponent} from 'ng-zorro-antd/input';
@@ -32,7 +32,6 @@ import {UploadService} from './api/upload.service';
 })
 export class EstablishmentsFormComponent {
   private uploadService: UploadService = inject(UploadService);
-  private fb: FormBuilder = inject(FormBuilder);
 
   title: string = '';
   type: string = '';
