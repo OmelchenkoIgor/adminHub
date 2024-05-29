@@ -11,7 +11,7 @@ export class EstablishmentsService {
   private http: HttpClient = inject(HttpClient);
 
   getAllEstablishments() {
-    return this.http.get(this.baseUrl + '/type/all');
+    return this.http.get(this.baseUrl);
   }
 
   deleteEstablishment(id: string) {

@@ -1,13 +1,14 @@
-import {Component, inject, OnInit, output, OutputEmitterRef} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent} from 'ng-zorro-antd/form';
 import {FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NzInputDirective, NzInputGroupComponent} from 'ng-zorro-antd/input';
 import {NzColDirective} from 'ng-zorro-antd/grid';
 import {NzButtonComponent} from 'ng-zorro-antd/button';
-import {NzUploadComponent} from 'ng-zorro-antd/upload';
+import {NzUploadChangeParam, NzUploadComponent} from 'ng-zorro-antd/upload';
 import {NzIconDirective} from 'ng-zorro-antd/icon';
 import {CommonModule} from '@angular/common';
 import {UploadService} from './api/upload.service';
+import {NzOptionComponent, NzSelectComponent} from 'ng-zorro-antd/select';
 
 @Component({
   selector: 'app-establishments-form',
@@ -25,32 +26,73 @@ import {UploadService} from './api/upload.service';
     NzUploadComponent,
     NzIconDirective,
     CommonModule,
-    FormsModule
+    FormsModule,
+    NzSelectComponent,
+    NzOptionComponent
   ],
   templateUrl: './establishments-form.component.html',
   styleUrl: './establishments-form.component.scss'
 })
-export class EstablishmentsFormComponent {
+export class EstablishmentsFormComponent implements OnInit {
   private uploadService: UploadService = inject(UploadService);
+  private fb: FormBuilder = inject(FormBuilder);
 
-  title: string = '';
-  type: string = '';
-  locations: string = '';
-  suggestions: any[] = [];
+  establishmentForm: FormGroup;
   images: File[] = [];
 
-  onFileSelected(event: any) {
-    this.images = event.target.files;
+  ngOnInit(): void {
+    this.establishmentForm = this.fb.group({
+      title: ['', Validators.required],
+      type: ['', Validators.required],
+      locations: ['', Validators.required],
+      suggestions: this.fb.array([this.createSuggestion()])
+    });
   }
 
-  upload() {
-    const suggestionsArray = JSON.parse(this.suggestions as unknown as string);
-    this.uploadService.uploadEstablishment(this.title, this.type, this.locations, suggestionsArray, this.images)
-      .subscribe(response => {
-        console.log('Upload successful:', response);
-      }, error => {
-        console.error('Error uploading:', error);
-      });
+  suggestions(): FormArray {
+    return this.establishmentForm.get('suggestions') as FormArray;
   }
 
+  createSuggestion(): FormGroup {
+    return this.fb.group({
+      name: ['', Validators.required],
+      price: ['', Validators.required],
+      volume: ['', Validators.required]
+    });
+  }
+
+  addSuggestion(): void {
+    this.suggestions().push(this.createSuggestion());
+  }
+
+  removeSuggestion(index: number): void {
+    this.suggestions().removeAt(index);
+  }
+
+  handleChange(info: NzUploadChangeParam): void {
+    if (info.file.status === 'done' || info.file.status === 'uploading') {
+      this.images = info.fileList.map(file => file.originFileObj as File);
+    }
+  }
+
+  upload(): void {
+    if (this.establishmentForm.valid && this.images.length > 0) {
+      const formData = this.establishmentForm.value;
+      this.uploadService.uploadEstablishment(
+        formData.title,
+        formData.type,
+        formData.locations,
+        formData.suggestions,
+        this.images
+      ).subscribe(
+        response => {
+          console.log('Upload successful:', response);
+          window.location.reload(); // виправити!!!
+        },
+        error => {
+          console.error('Error uploading:', error);
+        }
+      );
+    }
+  }
 }

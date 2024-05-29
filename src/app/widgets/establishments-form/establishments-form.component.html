@@ -1,23 +1,72 @@
-<div class="establishments-form">
-  <div class="form-group">
-    <label for="title">Назва</label>
-    <input type="text" id="title" [(ngModel)]="title" placeholder="Enter title" class="form-control">
-  </div>
-  <div class="form-group">
-    <label for="type">Тип</label>
-    <input type="text" id="type" [(ngModel)]="type" placeholder="Enter type" class="form-control">
-  </div>
-  <div class="form-group">
-    <label for="locations">Розташування</label>
-    <input type="text" id="locations" [(ngModel)]="locations" placeholder="Enter locations" class="form-control">
-  </div>
-  <div class="form-group">
-    <label for="suggestions">Пропозиції (JSON)</label>
-    <input type="text" id="suggestions" [(ngModel)]="suggestions" placeholder="Enter suggestions" class="form-control">
-  </div>
-  <div class="form-group">
-    <label for="images">Завантажити зображення</label>
-    <input type="file" id="images" (change)="onFileSelected($event)" multiple class="form-control-file">
-  </div>
-  <button (click)="upload()" class="btn btn-primary">Завантажити</button>
-</div>
+<form
+  nz-form
+  [formGroup]="establishmentForm"
+  (ngSubmit)="upload()"
+>
+  <nz-form-item class="fields">
+    <nz-form-item>
+      <nz-form-label nzFor="title">Назва</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="title" formControlName="title" placeholder="Назва закладу" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="type">Тип</nz-form-label>
+      <nz-form-control>
+        <nz-select formControlName="type" id="type" nzPlaceHolder="Оберіть тип закладу">
+          <nz-option nzValue="Кав'ярня" nzLabel="Кав'ярня"></nz-option>
+          <nz-option nzValue="Барбершоп" nzLabel="Барбершоп"></nz-option>
+          <nz-option nzValue="Ресторан" nzLabel="Ресторан"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="locations">Розташування</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="locations" formControlName="locations" placeholder="Розташування закладу" />
+      </nz-form-control>
+    </nz-form-item>
+  </nz-form-item>
+
+  <nz-form-item formArrayName="suggestions">
+    <nz-form-label>Пропозиції</nz-form-label>
+    <nz-form-control>
+      <div *ngFor="let suggestion of suggestions().controls; let i = index" [formGroupName]="i" class="suggestion-group">
+        <nz-input-group nzCompact class="suggestion-input-group">
+          <input nz-input formControlName="name" placeholder="Назва" />
+          <input nz-input formControlName="price" placeholder="Ціна" />
+          <input nz-input formControlName="volume" placeholder="Об'єм" />
+          <button nz-button nzType="primary" (click)="removeSuggestion(i)">Видалити</button>
+        </nz-input-group>
+      </div>
+      <button nz-button nzType="dashed" (click)="addSuggestion()">Додати пропозицію</button>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="images">Завантажити зображення</nz-form-label>
+    <nz-form-control>
+      <nz-upload
+        nzListType="picture"
+        [nzLimit]="3"
+        [nzMultiple]="true"
+        [nzShowUploadList]="true"
+        (nzChange)="handleChange($event)"
+      >
+        <button nz-button>
+          <i nz-icon nzType="upload"></i> Вибрати зображення
+        </button>
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <div class="submit-btn">
+        <button nz-button nzType="primary" type="submit" [disabled]="!establishmentForm.valid || images.length === 0">Завантажити</button>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+</form>
