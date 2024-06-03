@@ -10,8 +10,8 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/shares/shares.component')
   },
   {
-    path: 'reference-book',
-    loadComponent: () => import('./pages/reference-book/reference-book.component')
+    path: 'handbook',
+    loadComponent: () => import('./pages/handbook/handbook.component')
   },
   {
     path: 'news',

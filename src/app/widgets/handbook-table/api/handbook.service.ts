@@ -1,20 +1,19 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class EstablishmentsService {
+export class HandbookService {
   private baseUrl = 'https://test-server-lovat.vercel.app/api';
 
   private http: HttpClient = inject(HttpClient);
 
-  getAllEstablishments() {
-    return this.http.get(this.baseUrl);
+  getAllHandbook() {
+    return this.http.get(this.baseUrl + '/handbook');
   }
 
-  deleteEstablishment(id: string) {
-    return this.http.delete(this.baseUrl + '/delete/establishments/' + id);
+  deleteHandbook(id: string) {
+    return this.http.delete(this.baseUrl + '/delete/handbook/' + id);
   }
 }

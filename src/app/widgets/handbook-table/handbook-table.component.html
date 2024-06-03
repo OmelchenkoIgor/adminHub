@@ -1,0 +1,39 @@
+<div class="handbook-table">
+  <nz-table
+    nzBordered
+    nzTemplateMode
+    #basicTable
+    [nzData]="listHandbooks()"
+    [nzScroll]="{x: '100vh'}"
+  >
+    <thead>
+    <tr>
+      <th>Назва</th>
+      <th>Адреса</th>
+      <th>Номер телефону</th>
+      <th>Пошта</th>
+      <th>Розклад</th>
+      <th>Дії</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (data of basicTable.data; track $index) {
+        <tr>
+          <td>{{ data.title }}</td>
+          <td>{{ data.addresses[0] }}</td>
+          <td>{{ data.phone_number }}</td>
+          <td>{{ data.email }}</td>
+          <td>{{ data.schedule }}</td>
+          <td>
+            <a
+              nz-popconfirm
+              nzPopconfirmTitle="Дійсно бажаєте видалити цей довідник?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="deleteHandbook(data._id)"
+            >Видалити</a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>

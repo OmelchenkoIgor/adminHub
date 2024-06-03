@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class UploadService {
-  private baseUrl = 'https://test-server-lovat.vercel.app/api/upload';
+  private baseUrl = 'https://test-server-lovat.vercel.app/api/uploadEstablishments';
 
   private http: HttpClient = inject(HttpClient);
 

@@ -1,0 +1,57 @@
+<form
+  nz-form
+  [formGroup]="handbookForm"
+  (ngSubmit)="upload()"
+>
+  <nz-form-item class="fields">
+    <nz-form-item>
+      <nz-form-label nzFor="title">Назва</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="title" formControlName="title" placeholder="Назва закладу" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="phone_number">Телефон</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="phone_number" formControlName="phone_number" placeholder="Номер телефону" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="email">Електронна пошта</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="email" formControlName="email" placeholder="Електронна пошта" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="schedule">Розклад</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="schedule" formControlName="schedule" placeholder="Розклад" />
+      </nz-form-control>
+    </nz-form-item>
+  </nz-form-item>
+
+  <nz-form-item formArrayName="addresses">
+    <nz-form-label>Адреси</nz-form-label>
+    <nz-form-control>
+      <div *ngFor="let address of allAddresses().controls; let i = index">
+        <nz-input-group nzCompact class="addresses-input-group">
+          <input nz-input [formControlName]="i" placeholder="Адреса" />
+          <button nz-button nzType="primary" (click)="removeAddresses(i)">Видалити</button>
+        </nz-input-group>
+      </div>
+      <button nz-button nzType="dashed" (click)="addAddresses()">Додати адресу</button>
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-control>
+      <div class="submit-btn">
+        <button nz-button nzType="primary" type="submit" [disabled]="!handbookForm.valid">Завантажити</button>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+</form>
