@@ -1,0 +1,75 @@
+<form
+  nz-form
+  [formGroup]="sharedForm"
+  (ngSubmit)="upload()"
+>
+  <nz-form-item class="fields">
+    <nz-form-item>
+      <nz-form-label nzFor="name">Назва</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="name" formControlName="name" placeholder="Назва" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="title">Заголовок</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="title" formControlName="title" placeholder="Заголовок" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="description">Опис</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="description" formControlName="description" placeholder="Опис" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="info">Дата</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="info" formControlName="info" placeholder="Дата" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="date">Посилання</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="date" formControlName="date" placeholder="Посилання" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="link">Назва</nz-form-label>
+      <nz-form-control>
+        <input nz-input id="link" formControlName="link" placeholder="Назва закладу" />
+      </nz-form-control>
+    </nz-form-item>
+
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="images">Завантажити зображення</nz-form-label>
+    <nz-form-control>
+      <nz-upload
+        nzListType="picture"
+        [nzLimit]="3"
+        [nzMultiple]="true"
+        [nzShowUploadList]="true"
+        (nzChange)="handleChange($event)"
+      >
+        <button nz-button>
+          <i nz-icon nzType="upload"></i> Вибрати зображення
+        </button>
+      </nz-upload>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <div class="submit-btn">
+        <button nz-button nzType="primary" type="submit" [disabled]="!sharedForm.valid || images.length === 0">Завантажити</button>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+</form>

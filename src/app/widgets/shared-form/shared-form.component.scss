@@ -1,0 +1,42 @@
+.fields {
+  display: flex;
+  gap: 10px;
+}
+
+.suggestion-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.suggestion-input-group input {
+  flex: 1;
+  min-width: 150px; /* Adjust as needed */
+}
+
+.suggestion-input-group button {
+  flex-shrink: 0;
+}
+
+.ant-form-item {
+  margin: 0;
+}
+
+.submit-btn {
+  padding: 10px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+/* Styles for mobile devices */
+@media (max-width: 600px) {
+  .suggestion-input-group {
+    flex-direction: column;
+  }
+
+  .suggestion-input-group button {
+    align-self: flex-end;
+  }
+}

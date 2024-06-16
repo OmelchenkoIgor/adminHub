@@ -14,10 +14,6 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/handbook/handbook.component')
   },
   {
-    path: 'news',
-    loadComponent: () => import('./pages/news/news.component')
-  },
-  {
     path: '',
     redirectTo: 'establishments',
     pathMatch: 'full'
